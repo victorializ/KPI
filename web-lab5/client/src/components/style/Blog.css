@@ -1,0 +1,119 @@
+@media all and (max-width: 1200px) {
+    .PostView {
+        width: 90vw;
+    }
+    .filter {
+        width: 90vw;
+        margin: auto;
+    }
+    .BlogView {
+        grid-template-columns: auto;
+        grid-template-areas: 
+            "header"
+            "userInfo"
+            "section"
+            "aside"
+            "footer";
+    }    
+}
+@media all and (min-width: 1200px) {
+    .PostView {
+        width: 50vw;
+     } 
+     .BlogView {
+        grid-template-columns: 20vw auto 20vw;
+        grid-template-areas: 
+            "userInfo header header"
+            "userInfo section aside"
+            "footer footer footer";
+    }       
+    .filter {
+        width: 30vw;
+    } 
+}
+.BlogView {
+    display: grid; 
+    grid-row-gap: 10px;
+    grid-column-gap: 10px;
+    min-height: 100vh;
+}  
+.PostView {
+   height: 30vh;
+   border-bottom: 1px solid black;
+   box-sizing: content-box;
+   margin: auto;
+}
+
+.BlogView h1 {
+    padding-top: 60px;
+}
+
+.PostView img {
+    height: 80%;
+    float: left;
+    padding: 20px;
+}
+.BlogView header {
+    grid-area: header;
+    background: #C38D9E;
+    height: 30vh;
+    box-shadow: 0 4px 2px -2px rgba(0,0,0,0.4);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.BlogView header h1 {
+    text-align: center;
+    font-size: 80px;
+    color: white;
+    text-shadow: 3px 0px 0px black;
+}
+
+.UserInfo {
+    grid-area: userInfo;
+    background: rgba(65, 179, 164, 0.233);
+    box-shadow: 0 4px 2px -2px rgba(0,0,0,0.4);
+    text-align: center;
+}
+.UserInfo p {
+    margin: 20px;
+}
+.UserInfo img {
+    height: 200px;
+    border-radius: 100%;
+    padding: 10px;
+    margin: 20px;
+    border: 1px solid #41B3A3;
+}
+footer {
+    grid-area: footer;
+}
+.BlogView aside{
+    background: rgba(232, 167, 124, 0.144);
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    padding: 30px;
+    box-shadow: 0 4px 2px -2px rgba(0,0,0,0.4);
+    min-height: 50vh;
+}
+.BlogView aside h1 {
+    margin: 5px;
+    padding: 0;
+    text-align: center;
+} 
+.tags {
+    font-style: italic;
+    text-align: right;
+}
+.tagCloud h1:hover {
+    text-decoration: underline;
+}
+.filter {
+    display: block;
+    padding: 20px;
+    border-radius: 42px;
+    border: 2px solid #324b4e;
+    background: #F9F0DA;
+}

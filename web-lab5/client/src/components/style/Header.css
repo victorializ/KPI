@@ -1,0 +1,48 @@
+.Header {
+    background: #C38D9E;
+    height: 70vh;
+    box-shadow: 0 4px 2px -2px rgba(0,0,0,0.4);
+    padding: 20px;
+}
+
+.Header a, .Header h1, .Header h2 {
+    color: white;
+    text-transform: uppercase;
+}
+
+.Header ul {
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.Header li {
+    display: block;
+    list-style: none;
+    margin: 20px;
+}
+
+.Header li a, .Header h2 a {
+    text-decoration: none;
+}
+
+.Header h1 {
+    display: block;
+    margin-top: 35vh;
+    text-align: center;
+    font-size: 80px;
+    color: white;
+    text-shadow: 3px 0px 0px black;
+}
+
+.Header li a:hover {
+    border-bottom: 2px solid white;
+}
+    
+.Header h2 {
+    font-size: 50px;
+    display: block;
+    flex: 3;
+}
+

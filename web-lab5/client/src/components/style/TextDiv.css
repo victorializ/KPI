@@ -1,0 +1,25 @@
+.TextDiv {
+    height: 30%;
+    width: 50%;
+    box-sizing: content-box;
+    padding: 20px;
+    padding: 5vh;
+    margin: auto;
+}
+
+.TextDiv h1 {
+    text-align: center;
+    padding: 20px;
+}
+
+.TextDiv:hover {
+    border-bottom: 1px solid #E27D60;
+}
+
+.TextDiv p {
+    text-align: center;
+}
+.TextDiv a{
+    text-decoration: underline;
+    color: black;
+}
