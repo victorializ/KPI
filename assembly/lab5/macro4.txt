@@ -1,0 +1,36 @@
+sum_numbers macro
+	local overflow, sum_numbers_exit, sum_numbers_loop
+	push cx
+	push bx
+	push ax
+		
+	xor cx, cx
+	mov cl, array_size ; cx = array size
+    	lea bx, array ; bx = address of array
+    	xor ax, ax  ; sum of numbers in array 
+
+	sum_numbers_loop:  
+		add ax, [bx] 
+		jc overflow
+		jo overflow
+        add bx, 2   ;next item
+        loop sum_numbers_loop
+
+    	lea di, s_sum
+	call print_str
+	call print_num
+	call print_endline
+	jmp sum_numbers_exit
+		
+	overflow: 
+		lea di, s_overflow_err
+		call print_endline
+		call print_str
+		call print_endline
+		jmp sum_numbers_exit
+			
+	sum_numbers_exit:
+		pop ax
+		pop bx
+		pop cx
+		endm

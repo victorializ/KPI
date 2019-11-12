@@ -1,0 +1,23 @@
+print_string macro str
+	; displays str on the screen
+    push ax
+	push dx
+    mov ah,9	
+	lea dx, str
+    int 21h		    
+	pop dx
+    pop ax	    
+    endm
+	
+input_string macro maxlength
+	;sets address of entered string in dx 
+	;al-entered string length
+	;maxlength - max length of user input 
+    mov ah,0Ah	    
+	mov [buffer], maxlength; set max input length into first byte
+    mov byte[buffer+1],0 
+    lea dx,buffer ;DX = input adress  
+    int 21h		    
+    mov al,[buffer+1] ;AL = input length	    
+    add dx,2 ;DX = str address			    
+    endm

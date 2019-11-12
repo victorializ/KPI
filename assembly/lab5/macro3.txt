@@ -1,0 +1,44 @@
+func1 macro
+	local func1_overflow, func1_exit
+	push bx
+		push dx 
+		push cx
+					
+		xor bx, bx
+		xor dx, dx
+		xor cx, cx
+					
+		mov x, ax
+		imul ax ; ax = x^2
+		jc func1_overflow
+		jo func1_overflow
+		mov cx, 75
+		imul cx ; ax = 75*x^2
+		jc func1_overflow
+		jo func1_overflow
+		xor cx, cx
+		mov cx, 17
+		mov bx, ax ; 75*x^2
+		xor ax, ax
+		mov ax, x ; ax = x
+		imul cx ; ax = 17 * x
+		jc func1_overflow
+		jo func1_overflow
+		sub bx, ax ; bx = 75*x^2 - 17 * x
+		jo func1_overflow
+		mov ax, bx 
+		
+		call print_num
+		jmp func1_exit
+		
+		func1_overflow:
+			lea di, s_overflow_err
+			call print_str
+			
+		func1_exit:
+			call print_endline
+			call print_endline
+			pop cx
+			pop dx
+			pop bx	
+    endm
