@@ -1,0 +1,22 @@
+<mat-toolbar>Equipment</mat-toolbar>
+<div class="page">
+    <form>
+        <mat-form-field class="example-full-width" class="item">
+            <input matInput placeholder="Id" [(ngModel)]="id" name="id">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" class="item">
+            <input matInput placeholder="Name" [(ngModel)]="name" name="name">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" class="item">
+            <input matInput placeholder="Type" [(ngModel)]="type" name="type">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" class="item">
+            <input matInput placeholder="Price" [(ngModel)]="price" name="price">
+        </mat-form-field>
+    </form>
+    <div class="wrapper">
+        <button mat-stroked-button color="primary" class="item" (click)="delete()">Delete</button>
+        <button mat-stroked-button color="primary" class="item" (click)="update()">Update</button>
+        <button mat-stroked-button color="primary" class="item" (click)="add()">Add</button>
+    </div>
+</div>

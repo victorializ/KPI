@@ -1,0 +1,16 @@
+.group {
+    display: flex;
+}
+
+.card {
+    width: 50%;
+    margin: 10px;
+    border: 1px solid gray;
+}
+
+.wrapper {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+}

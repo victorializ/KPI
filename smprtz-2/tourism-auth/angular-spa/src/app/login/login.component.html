@@ -1,0 +1,21 @@
+<div class="wrapper">
+    <div *ngIf="!isLoggedIn()" class="wrapper">
+        <mat-form-field class="example-full-width item" *ngIf="registration">
+            <input matInput placeholder="Name" [(ngModel)]="name" name="name">
+        </mat-form-field>
+        <mat-form-field class="example-full-width item">
+            <input matInput placeholder="Login" [(ngModel)]="email" name="email">
+        </mat-form-field>
+        <mat-form-field class="example-full-width item">
+            <input matInput placeholder="Password" [(ngModel)]="password" name="password " type="password">
+        </mat-form-field>
+        <mat-form-field class="example-full-width item" *ngIf="registration">
+            <input matInput placeholder="Re-enter password" [(ngModel)]="reenter" name="reenter" type="password">
+        </mat-form-field>
+        <button mat-raised-button color="primary" class="button" (click)="login()">Login</button>
+        <button mat-raised-button class="button" (click)="register()">Register</button>
+    </div>
+    <div *ngIf="isLoggedIn()">
+        <button mat-raised-button color="primary" class="button" (click)="logout()">Logout</button>
+    </div>
+</div>
