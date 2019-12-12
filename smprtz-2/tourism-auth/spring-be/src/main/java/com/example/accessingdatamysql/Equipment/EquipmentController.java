@@ -67,7 +67,7 @@ public class EquipmentController {
     @RequestMapping(path="/update/{id}", method = RequestMethod.POST)
     public @ResponseBody String update(@PathVariable Integer id, @RequestParam String name, @RequestParam String type, @RequestParam Float price) {
         // This returns a JSON or XML with the users
-        Equipment updated = repository.update(name,  price, type);
-        return String.format("Updated: %s", updated.toString());
+        repository.customUpdate(name,  price, type, id);
+        return String.format("Updated!\n");
     }
 }

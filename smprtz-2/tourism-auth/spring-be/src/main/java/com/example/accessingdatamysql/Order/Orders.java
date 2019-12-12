@@ -14,11 +14,11 @@ public class Orders {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
     private Date date;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "tourist")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Tourist tourist;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "equipment")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Equipment equipment;

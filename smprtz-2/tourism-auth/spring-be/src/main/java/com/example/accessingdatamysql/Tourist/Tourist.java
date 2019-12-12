@@ -54,6 +54,6 @@ public class Tourist  {
 
     @Override
     public String toString() {
-        return String.format("Tourist: id=%d name=%s email=%s", id, name, email);
+        return String.format("Tourist: id=%d name=%s email=%s", id, name, email, role);
     }
 }

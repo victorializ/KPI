@@ -23,9 +23,9 @@ public class OrdersController {
     @Autowired
     private EquipmentRepository equipmentRepository;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(path = "/list/{id}", method = RequestMethod.GET)
-    public @ResponseBody
-    Iterable<Orders> getUsersOrders(@PathVariable Integer id) {
+    public @ResponseBody Iterable<Orders> getUsersOrders(@PathVariable Integer id) {
         return repository.findUsersOrders(id);
     }
 

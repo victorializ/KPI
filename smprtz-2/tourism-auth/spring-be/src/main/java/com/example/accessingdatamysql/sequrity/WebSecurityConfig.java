@@ -41,6 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/tourist/login/{email}/{password}").permitAll()//
                 .antMatchers("/tourist/new/{name}/{email}/{password}").permitAll()//
                 .antMatchers("/equipment/list").permitAll()
+                .antMatchers("/equipment/{id}").permitAll()
                 // Disallow everything else..
                 .anyRequest().authenticated();
 
@@ -52,6 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         // Optional, if you want to test the API from a browser
         // http.httpBasic();
+        http.cors();
     }
 
     @Bean
