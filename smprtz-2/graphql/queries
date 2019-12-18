@@ -1,0 +1,94 @@
+mutation{
+	addProduct(name:"laptop",price:500) {
+		name,
+		price
+	}
+}
+
+mutation{
+	addUser(name:"vika",email:"vika@email.com") {
+		name,
+		email
+	}
+}
+
+mutation{
+	addOrder(userId:"5dfa96e4f373b71f1ecc7f34",productId:"5dfa9572f373b71f1ecc7f33") {
+		user {
+			id
+		},
+		product {
+			id
+		}
+	}
+}
+
+{
+	products {
+		id, 
+		name, 
+		price
+  	}
+}
+
+{
+  products{
+    name,
+    order {
+       user {
+      	name
+    	}
+    }
+  }
+}
+
+
+{
+  product(id: "5dfa9572f373b71f1ecc7f33") {
+    name
+  }
+}
+
+{
+  product(id: "5dfa9572f373b71f1ecc7f33") {
+    name,
+    order {
+      id
+    }
+  }
+}
+
+
+{
+	users {
+		id, 
+		name, 
+		email
+  	}
+}
+
+{
+  users {
+    id,
+    name,
+    order {
+       product {
+      	name
+    	}
+    }
+  }
+}
+
+
+{
+	orders {
+		id,
+		product{
+			id
+		},
+		user{
+			id
+		}
+	}
+}
+
