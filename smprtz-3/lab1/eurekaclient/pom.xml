@@ -78,6 +78,9 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>com.concert.eurekaclient.EurekaclientApplication</mainClass>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

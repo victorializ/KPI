@@ -1,0 +1,15 @@
+# Created at 2020-04-06T13:24:02.380
+WARNING: An illegal reflective access operation has occurred
+
+# Created at 2020-04-06T13:24:02.382
+WARNING: Illegal reflective access by com.thoughtworks.xstream.core.util.Fields (file:/C:/Users/vlize/.m2/repository/com/thoughtworks/xstream/xstream/1.4.11.1/xstream-1.4.11.1.jar) to field java.util.TreeMap.comparator
+
+# Created at 2020-04-06T13:24:02.385
+WARNING: Please consider reporting this to the maintainers of com.thoughtworks.xstream.core.util.Fields
+
+# Created at 2020-04-06T13:24:02.389
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+
+# Created at 2020-04-06T13:24:02.395
+WARNING: All illegal access operations will be denied in a future release
+
