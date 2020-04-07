@@ -13,13 +13,8 @@ public class CustomErrorController implements ErrorController {
     public String handleError(HttpServletRequest request) {
         Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
         Exception exception = (Exception) request.getAttribute("javax.servlet.error.exception");
-        return String.format(
-                "<html><body>" +
-                        "<h2>Error Page</h2>" +
-                        "<div>Status code: <b>%s</b></div>" +
-                        "<div>Exception Message: <b>%s</b></div>" +
-                "<body></html>",
-                statusCode, exception==null? "Not found": exception.getMessage());
+        String message = exception == null ? "Not found": exception.getMessage();
+        return String.format("Error occurred\nStatus code: %s\nException Message: %s", statusCode, message);
     }
 
     @Override
