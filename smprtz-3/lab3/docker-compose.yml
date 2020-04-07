@@ -1,0 +1,79 @@
+version: '3.7'
+services:
+  mysql:
+    hostname: mysql
+    image: mysql:5.7
+    restart: always
+    logging:
+      driver: none
+    environment:
+      MYSQL_DATABASE: 'ticket'
+      MYSQL_USER: 'admin'
+      MYSQL_PASSWORD: 'P@ssw0rd'
+      MYSQL_ROOT_PASSWORD: 'P@ssw0rd'
+    ports:
+      - '3306:3306'
+  
+  rabbit:
+    hostname: rabbit
+    image: "rabbitmq:3"
+    environment:
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
+      RABBITMQ_DEFAULT_VHOST: "/"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    depends_on:
+      - mysql
+
+  eurekaserver:
+    hostname: eurekaserver
+    build:
+      context: eurekaserver
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+    depends_on:
+      - rabbit
+  
+  configserver:
+    hostname: configserver
+    environment:
+      - EUREKA_SERVER=http://eurekaserver:8761/eureka
+    build:
+      context: configserver
+      dockerfile: Dockerfile
+    ports:
+      - "8888:8888"
+    depends_on:
+      - eurekaserver
+ 
+  spring-cloud-eureka-feign-client:
+    hostname: spring-cloud-eureka-feign-client
+    environment:
+      - EUREKA_SERVER=http://eurekaserver:8761/eureka
+      - CONFIG_SERVER=http://configserver:8888
+      - RABBIT=rabbit
+    build:
+      context: apigateway
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - eurekaserver
+
+  ticket-service:
+    hostname: ticket-service
+    environment:
+      - EUREKA_SERVER=http://eurekaserver:8761/eureka
+      - CONFIG_SERVER=http://configserver:8888
+      - MYSQL=mysql:3306
+      - RABBIT=rabbit
+    build:
+     context: eurekaclient
+     dockerfile: Dockerfile
+    ports:
+     - "8081-8082:8081"
+    depends_on:
+     - spring-cloud-eureka-feign-client

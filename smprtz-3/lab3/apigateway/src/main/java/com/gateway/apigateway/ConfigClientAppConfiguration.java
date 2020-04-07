@@ -6,44 +6,43 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "test")
 public class ConfigClientAppConfiguration {
+    private String prop1;
+    private String prop2;
+    private String prop3;
+    private String prop4;
+
     public ConfigClientAppConfiguration() {
     }
 
-    public String getFirstprop() {
-        return firstprop;
-    }
-    public void setFirstprop(String firstprop) {
-        this.firstprop = firstprop;
-    }
-    private String firstprop;
-
-    public String getSecondprop() {
-        return secondprop;
+    public String getProp1() {
+        return prop1;
     }
 
-    public void setSecondprop(String secondprop) {
-        this.secondprop = secondprop;
+    public void setProp1(String prop1) {
+        this.prop1 = prop1;
     }
 
-    private String secondprop;
-
-    public String getThirdprop() {
-        return thirdprop;
+    public String getProp2() {
+        return prop2;
     }
 
-    public void setThirdprop(String thirdprop) {
-        this.thirdprop = thirdprop;
+    public void setProp2(String prop2) {
+        this.prop2 = prop2;
     }
 
-    private String thirdprop;
-
-    public String getFourthprop() {
-        return fourthprop;
+    public String getProp3() {
+        return prop3;
     }
 
-    public void setFourthprop(String fourthprop) {
-        this.fourthprop = fourthprop;
+    public void setProp3(String prop3) {
+        this.prop3 = prop3;
     }
 
-    private String fourthprop;
+    public String getProp4() {
+        return prop4;
+    }
+
+    public void setProp4(String prop4) {
+        this.prop4 = prop4;
+    }
 }

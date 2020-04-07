@@ -1,0 +1,13 @@
+### Get config
+GET http://localhost:8080/config
+Content-type: application/json
+
+### Refresh config
+POST http://localhost:8080/actuator/refresh
+Content-type: application/json
+
+### Refresh config
+POST http://localhost:8888/actuator/bus-refresh
+Content-type: application/json
+
+{}
