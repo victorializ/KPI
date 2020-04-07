@@ -1,15 +1,25 @@
 package com.concert.eurekaclient.Ticket;
 
+import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
 public class Ticket {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(
+            strategy= GenerationType.AUTO,
+            generator="native"
+    )
+    @GenericGenerator(
+            name = "native",
+            strategy = "native"
+    )
     private Integer id;
     private String event;
     private Date date;
@@ -17,7 +27,6 @@ public class Ticket {
     private String zone;
     private Integer place;
     private Float price;
-    private Date purchaseDate;
 
     public Integer getId() {
         return id;
@@ -43,12 +52,12 @@ public class Ticket {
         this.location = location;
     }
 
-    public Date getDate() {
-        return date;
+    public String getDate() {
+        return (new SimpleDateFormat("dd/MM/yyyy HH:mm:ss")).format(date);
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDate(String date) throws ParseException {
+        this.date = (new SimpleDateFormat("dd/MM/yyyy HH:mm:ss")).parse(date);
     }
 
     public String getZone() {
@@ -73,19 +82,5 @@ public class Ticket {
 
     public void setPrice(Float price) {
         this.price = price;
-    }
-
-    public Date getPurchaseDate() {
-        return purchaseDate;
-    }
-
-    public void setPurchaseDate(Date purchaseDate) {
-        this.purchaseDate = purchaseDate;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("Ticket: id = %d event = %s date = %s location = %s zone = %s place = %d price = %f puchaseDate = %s",
-                id, event, date.toString(), location, zone, place, price,  purchaseDate.toString());
     }
 }

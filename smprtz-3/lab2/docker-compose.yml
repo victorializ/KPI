@@ -1,0 +1,50 @@
+version: '3.7'
+services:
+  mysql:
+    hostname: mysql
+    image: mysql:5.7
+    restart: always
+    logging:
+      driver: none
+    environment:
+      MYSQL_DATABASE: 'ticket'
+      MYSQL_USER: 'admin'
+      MYSQL_PASSWORD: 'P@ssw0rd'
+      MYSQL_ROOT_PASSWORD: 'P@ssw0rd'
+    ports:
+      - '3306:3306'
+
+  eurekaserver:
+    hostname: eurekaserver
+    build:
+      context: eurekaserver
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+    depends_on:
+      - mysql
+ 
+  spring-cloud-eureka-feign-client:
+    hostname: spring-cloud-eureka-feign-client
+    environment:
+      - EUREKA_SERVER=http://eurekaserver:8761/eureka
+    build:
+      context: apigateway
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - eurekaserver
+
+  ticket-service:
+    hostname: ticket-service
+    environment:
+      - EUREKA_SERVER=http://eurekaserver:8761/eureka
+      - MYSQL=mysql:3306
+    build:
+     context: eurekaclient
+     dockerfile: Dockerfile
+    ports:
+     - "8081-8082:8081"
+    depends_on:
+     - spring-cloud-eureka-feign-client

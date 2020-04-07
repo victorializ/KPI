@@ -1,15 +1,13 @@
 package com.gateway.apigateway.Ticket;
-import java.util.Date;
 
 public class Ticket {
     private Integer id;
     private String event;
-    private Date date;
+    private String date;
     private String location;
     private String zone;
     private Integer place;
     private Float price;
-    private Date purchaseDate;
 
     public Integer getId() {
         return id;
@@ -35,13 +33,9 @@ public class Ticket {
         this.location = location;
     }
 
-    public Date getDate() {
-        return date;
-    }
+    public String getDate() { return date; }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
+    public void setDate(String date) { this.date = date; }
 
     public String getZone() {
         return zone;
@@ -65,13 +59,5 @@ public class Ticket {
 
     public void setPrice(Float price) {
         this.price = price;
-    }
-
-    public Date getPurchaseDate() {
-        return purchaseDate;
-    }
-
-    public void setPurchaseDate(Date purchaseDate) {
-        this.purchaseDate = purchaseDate;
     }
 }

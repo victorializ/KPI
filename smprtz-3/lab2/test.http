@@ -1,0 +1,36 @@
+### Create ticket
+POST http://localhost:8080/ticket
+content-type: application/json
+
+{
+  "event": "ATLAS",
+  "date": "07/07/2020 17:00:00",
+  "location": "VDNG",
+  "zone": "fan", 
+  "place": "0", 
+  "price": "1000"
+}
+
+### Update entity
+PUT http://localhost:8080/ticket/1
+content-type: application/json
+
+{
+  "event": "ATLAS",
+  "date": "05/07/2020 20:00:00",
+  "location": "VDNG",
+  "zone": "fan", 
+  "place": "0", 
+  "price": "1300"
+}
+
+### Fetch entities
+GET http://localhost:8080/ticket
+Content-type: application/json
+
+### Fetch entity
+GET http://localhost:8080/ticket/1
+Content-type: application/json
+
+### Delete entity
+DELETE http://localhost:8080/ticket/1
