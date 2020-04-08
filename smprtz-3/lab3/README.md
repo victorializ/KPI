@@ -3,8 +3,9 @@ docker
 docker-compose  
 порти 8761, 8080, 8082, 8083, 8888 вільні на момент запуску
 
-**Для того щоб запустити**:   
-cd smprtz-3/lab3 // перейти в директорію проекту  
+**Для того щоб запустити**:  
+git clone https://github.com/youngdecadent/KPI.git
+cd KPI/smprtz-3/lab3 // перейти в директорію проекту  
 docker-compose up // запустити за допомогою docker-compose  
 
 **Репозиторій із кофігураціями**:  
