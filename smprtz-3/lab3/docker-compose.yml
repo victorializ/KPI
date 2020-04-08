@@ -49,6 +49,38 @@ services:
     depends_on:
       - eurekaserver
  
+  ticket-service:
+    hostname: ticket-service
+    environment:
+      - EUREKA_SERVER=http://eurekaserver:8761/eureka
+      - CONFIG_SERVER=http://configserver:8888
+      - MYSQL=mysql:3306
+      - RABBIT=rabbit
+      - PORT=8082
+    build:
+     context: eurekaclient
+     dockerfile: Dockerfile
+    ports:
+     - "8082:8082"
+    depends_on:
+     - eurekaserver
+
+  ticket-service2:
+    hostname: ticket-service2
+    environment:
+      - EUREKA_SERVER=http://eurekaserver:8761/eureka
+      - CONFIG_SERVER=http://configserver:8888
+      - MYSQL=mysql:3306
+      - RABBIT=rabbit
+      - PORT=8083
+    build:
+     context: eurekaclient
+     dockerfile: Dockerfile
+    ports:
+     - "8083:8083"
+    depends_on:
+     - eurekaserver
+   
   spring-cloud-eureka-feign-client:
     hostname: spring-cloud-eureka-feign-client
     environment:
@@ -61,19 +93,4 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - eurekaserver
-
-  ticket-service:
-    hostname: ticket-service
-    environment:
-      - EUREKA_SERVER=http://eurekaserver:8761/eureka
-      - CONFIG_SERVER=http://configserver:8888
-      - MYSQL=mysql:3306
-      - RABBIT=rabbit
-    build:
-     context: eurekaclient
-     dockerfile: Dockerfile
-    ports:
-     - "8081-8082:8081"
-    depends_on:
-     - spring-cloud-eureka-feign-client
+      - ticket-service

@@ -32,22 +32,22 @@ public class TicketController {
         return configmap;
     }
 
-    @RequestMapping(path="", method = RequestMethod.POST)
+    @RequestMapping(path="/ticket", method = RequestMethod.POST)
     public @ResponseBody String add (@RequestBody Ticket ticket) throws ParseException {
         return client.add(ticket);
     }
 
-    @RequestMapping(path="", method = RequestMethod.GET)
+    @RequestMapping(path="/ticket", method = RequestMethod.GET)
     public @ResponseBody Signature<Iterable<Ticket>> getAll() {
         return client.getAll();
     }
 
-    @RequestMapping(path = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/ticket/{id}", method = RequestMethod.GET)
     public @ResponseBody Signature<Optional<Ticket>> getById(@PathVariable int id) {
         return client.getById(id);
     }
 
-    @RequestMapping(path="/{id}", method = RequestMethod.PUT)
+    @RequestMapping(path="/ticket/{id}", method = RequestMethod.PUT)
     public @ResponseBody String update(@PathVariable Integer id,
                                        @RequestBody Ticket ticket) throws ParseException {
         return client.customUpdate(id, ticket);
