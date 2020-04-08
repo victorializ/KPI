@@ -7,7 +7,8 @@ docker-compose
 cd smprtz-3/lab3 // перейти в директорію проекту  
 docker-compose up // запустити за допомогою docker-compose  
 
-**Репозиторій із кофігураціями** https://github.com/youngdecadent/config 
+**Репозиторій із кофігураціями**:  
+https://github.com/youngdecadent/config 
 
 **Для того щоб змінити конфігурації**:  
 git clone https://github.com/youngdecadent/config.git  
