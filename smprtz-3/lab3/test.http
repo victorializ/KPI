@@ -2,10 +2,10 @@
 POST http://localhost:8080/actuator/refresh
 
 ### Config refresh
-POST http://localhost:8083/actuator/refresh
+POST http://localhost:8082/actuator/refresh
 
 ### Bus refresh
-POST http://localhost:8080/actuator/bus-refresh
+POST http://localhost:8082/actuator/bus-refresh
 
 ### Api-gateway config
 GET http://localhost:8080/config
