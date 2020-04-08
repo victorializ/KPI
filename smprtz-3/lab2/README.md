@@ -2,7 +2,7 @@
 docker  
 docker-compose
 
-**Для того, щоб запустити:**
+**Для того, щоб запустити:**  
 cd KPI/smprtz-3/lab2 // перейти в директорію проекту  
 sudo docker-compose up --scale ticket-service=2 // запустити (два екземпляри ticket-service)
 
