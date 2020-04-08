@@ -23,6 +23,6 @@ git push origin master
 
 Eureka Server URL: http://localhost:8761  
 Api Gateway URL: http://localhost:8080  
-Service URL (instance 1): http://localhost:8082
-Service URL (instance 2): http://localhost:8083
-Config Server URL: http://localhost:8888
+Service URL (instance 1): http://localhost:8082  
+Service URL (instance 2): http://localhost:8083  
+Config Server URL: http://localhost:8888  
