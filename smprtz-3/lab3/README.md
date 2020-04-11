@@ -14,7 +14,7 @@ sudo docker exec -it  [configserver_container_id] /bin/bash
 cd config  
 echo test.prop1=1 > application.properties  
 echo test.prop2=2 >> application.properties  
-// або змінити файли за допомогою редактора “vi”
+// або змінити файли за допомогою редактора “vi”  
 git add .  
 git commit -m "change config" 
 
