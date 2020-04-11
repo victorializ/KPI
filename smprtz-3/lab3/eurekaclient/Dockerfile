@@ -7,4 +7,6 @@ RUN mvn -f /home/app/pom.xml clean package
 FROM openjdk:11-jre-slim
 COPY --from=build /home/app/target/eurekaclient-0.0.1-SNAPSHOT.jar /usr/local/lib/eurekaclient.jar
 EXPOSE 8081
-ENTRYPOINT ["java","-jar","/usr/local/lib/eurekaclient.jar"]
+ADD https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh .
+RUN chmod 777 wait-for-it.sh
+CMD ./wait-for-it.sh spring-cloud-eureka-feign-client:8080 --timeout=400 --strict -- java -jar /usr/local/lib/eurekaclient.jar

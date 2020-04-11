@@ -17,6 +17,8 @@ services:
   rabbit:
     hostname: rabbit
     image: "rabbitmq:3"
+    logging:
+      driver: none
     environment:
       RABBITMQ_DEFAULT_USER: "guest"
       RABBITMQ_DEFAULT_PASS: "guest"
@@ -48,39 +50,7 @@ services:
       - "8888:8888"
     depends_on:
       - eurekaserver
- 
-  ticket-service:
-    hostname: ticket-service
-    environment:
-      - EUREKA_SERVER=http://eurekaserver:8761/eureka
-      - CONFIG_SERVER=http://configserver:8888
-      - MYSQL=mysql:3306
-      - RABBIT=rabbit
-      - PORT=8082
-    build:
-     context: eurekaclient
-     dockerfile: Dockerfile
-    ports:
-     - "8082:8082"
-    depends_on:
-     - eurekaserver
 
-  ticket-service2:
-    hostname: ticket-service2
-    environment:
-      - EUREKA_SERVER=http://eurekaserver:8761/eureka
-      - CONFIG_SERVER=http://configserver:8888
-      - MYSQL=mysql:3306
-      - RABBIT=rabbit
-      - PORT=8083
-    build:
-     context: eurekaclient
-     dockerfile: Dockerfile
-    ports:
-     - "8083:8083"
-    depends_on:
-     - eurekaserver
-   
   spring-cloud-eureka-feign-client:
     hostname: spring-cloud-eureka-feign-client
     environment:
@@ -93,4 +63,36 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - ticket-service
+      - configserver
+    
+  ticket-service:
+    hostname: ticket-service
+    environment:
+      - EUREKA_SERVER=http://eurekaserver:8761/eureka
+      - CONFIG_SERVER=http://configserver:8888
+      - MYSQL=mysql:3306
+      - RABBIT=rabbit
+      - PORT=8082
+    build:
+      context: eurekaclient
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    depends_on:
+      - spring-cloud-eureka-feign-client
+    
+  ticket-service2:
+    hostname: ticket-service2
+    environment:
+      - EUREKA_SERVER=http://eurekaserver:8761/eureka
+      - CONFIG_SERVER=http://configserver:8888
+      - MYSQL=mysql:3306
+      - RABBIT=rabbit
+      - PORT=8083
+    build:
+      context: eurekaclient
+      dockerfile: Dockerfile
+    ports:
+      - "8083:8083"
+    depends_on:
+      - spring-cloud-eureka-feign-client
