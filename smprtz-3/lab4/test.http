@@ -1,0 +1,24 @@
+### Api-gateway config
+GET http://localhost:8080/config
+Content-type: application/json
+
+### Service (instance 1) config
+GET http://localhost:8082/config
+Content-type: application/json
+
+### Service (instance 2) config
+GET http://localhost:8083/config
+Content-type: application/json
+
+### Config refresh
+POST http://localhost:8080/actuator/refresh
+
+### Config refresh
+POST http://localhost:8082/actuator/refresh
+
+### Bus refresh
+POST http://localhost:8082/actuator/bus-refresh
+
+### Configs in config server
+GET http://localhost:8888/client/default
+Content-type: application/json
