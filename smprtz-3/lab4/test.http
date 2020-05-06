@@ -1,24 +1,37 @@
-### Api-gateway config
-GET http://localhost:8080/config
+### Fetch entities
+GET http://localhost:8080/ticket
 Content-type: application/json
 
-### Service (instance 1) config
-GET http://localhost:8082/config
+### Fetch entity
+GET http://localhost:8080/ticket/1
 Content-type: application/json
 
-### Service (instance 2) config
-GET http://localhost:8083/config
+### Delete entities
+DELETE http://localhost:8080/ticket/1
 Content-type: application/json
 
-### Config refresh
-POST http://localhost:8080/actuator/refresh
-
-### Config refresh
-POST http://localhost:8082/actuator/refresh
-
-### Bus refresh
-POST http://localhost:8082/actuator/bus-refresh
-
-### Configs in config server
-GET http://localhost:8888/client/default
+### Create entity
+POST http://localhost:8080/ticket
 Content-type: application/json
+
+{
+  "event": "ATLAS",
+  "date": "05/07/2020 20:00:00",
+  "location": "VDNG",
+  "zone": "fan", 
+  "place": "0", 
+  "price": "1300"
+}
+
+### Update entity
+PUT http://localhost:8080/ticket/1
+Content-type: application/json
+
+{
+  "event": "ATLAS",
+  "date": "05/07/2021 20:00:00",
+  "location": "VDNG",
+  "zone": "fan", 
+  "place": "0", 
+  "price": "1300"
+}

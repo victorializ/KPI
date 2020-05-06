@@ -1,11 +1,13 @@
-# Build stage
-FROM maven:3.6.0-jdk-11-slim AS build
-COPY src /home/app/src
-COPY pom.xml /home/app
-RUN mvn -f /home/app/pom.xml clean package
+FROM maven:3.5.2-jdk-8-alpine AS MAVEN_TOOL_CHAIN
+COPY pom.xml /tmp/
+RUN mvn -B dependency:go-offline -f /tmp/pom.xml -s /usr/share/maven/ref/settings-docker.xml
+COPY src /tmp/src/
+WORKDIR /tmp/
+RUN mvn -B -s /usr/share/maven/ref/settings-docker.xml package
 
-# Package stage
-FROM openjdk:11-jre-slim
-COPY --from=build /home/app/target/eurekaserver-0.0.1-SNAPSHOT.jar /usr/local/lib/eurekaserver.jar
+FROM java:8-jre-alpine
 EXPOSE 8761
-ENTRYPOINT ["java","-jar","/usr/local/lib/eurekaserver.jar"]
+RUN mkdir /app
+COPY --from=MAVEN_TOOL_CHAIN /tmp/target/*.jar /app/video-game-server.jar
+
+ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom","-jar","/app/video-game-server.jar"]
