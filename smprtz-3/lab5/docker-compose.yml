@@ -1,0 +1,81 @@
+version: '3.4'
+services:
+  mysql:
+    hostname: mysql
+    image: mysql:5.7
+    restart: always
+    logging:
+      driver: none
+    environment:
+      MYSQL_DATABASE: 'ticket'
+      MYSQL_USER: 'admin'
+      MYSQL_PASSWORD: 'P@ssw0rd'
+      MYSQL_ROOT_PASSWORD: 'P@ssw0rd'
+    ports:
+      - '3306:3306'
+
+  rabbitmq:
+    hostname: rabbitmq
+    image: rabbitmq:3
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+      - "9080:9080"
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+  
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+    hostname: zookeeper
+    
+  kafka:
+    image: wurstmeister/kafka
+    command: [start-kafka.sh]
+    ports:
+      - "9092:9092"
+    hostname: kafka
+    environment:
+      KAFKA_CREATE_TOPICS: "create.entity:3:1,update.entity:3:1" # topic:partition:replicas
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_PORT: 9092
+    depends_on:
+      - "zookeeper"
+
+  eurekaserver:
+    hostname: eurekaserver
+    build:
+      context: eurekaserver
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+    depends_on:
+      - mysql
+  
+  configserver:
+    hostname: configserver
+    environment:
+      - WAITFORIT_HOST=eurekaserver
+      - WAITFORIT_PORT=8761
+      - WAITFORIT_TIMEOUT=120
+      - EUREKA_SERVER=http://eurekaserver:8761/eureka
+    build:
+      context: configserver
+      dockerfile: Dockerfile
+    ports:
+      - "8888:8888"
+    depends_on:
+      - eurekaserver
