@@ -25,4 +25,4 @@ scrape_configs:
     metrics_path: /actuator/prometheus
 
     static_configs:
-      - targets: ['apigateway:8080']
+      - targets: ['spring-cloud-eureka-feign-client:8080']
