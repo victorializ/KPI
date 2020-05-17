@@ -8,10 +8,10 @@ RUN mvn -B -s /usr/share/maven/ref/settings-docker.xml package
 FROM java:8-jre-alpine
 EXPOSE 8080
 RUN mkdir /app
-COPY --from=MAVEN_TOOL_CHAIN /tmp/target/*.jar /app/api-gateway.jar
+COPY --from=MAVEN_TOOL_CHAIN /tmp/target/*.jar /app/apigateway.jar
 
 RUN apk add --no-cache bash
 ADD https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh wait-for-it.sh
 RUN chmod +x wait-for-it.sh
 
-ENTRYPOINT ["./wait-for-it.sh", "--", "java", "-Djava.security.egd=file:/dev/./urandom","-jar","/app/api-gateway.jar"]
+ENTRYPOINT ["./wait-for-it.sh", "--", "java", "-Djava.security.egd=file:/dev/./urandom","-jar","/app/apigateway.jar"]

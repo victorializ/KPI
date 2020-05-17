@@ -24,6 +24,9 @@ public class TicketController {
     @Autowired
     TicketService service;
 
+    @Autowired
+    KafkaProducerDemo kafkaProducer;
+
     @RequestMapping(path="/config", method = RequestMethod.GET)
     public @ResponseBody HashMap<String, String> getConfig() {
         HashMap<String, String> configmap = new HashMap<String, String>();
@@ -52,9 +55,10 @@ public class TicketController {
     }
 
     @RequestMapping(path = "/ticket", method = RequestMethod.POST)
-    ResponseEntity<?> Add(@RequestBody Ticket game) {
+    ResponseEntity<?> Add(@RequestBody Ticket ticket) {
         try {
-            return new ResponseEntity<>(service.Add(game), HttpStatus.OK);
+            kafkaProducer.sendMessage("create.entity", ticket);
+            return new ResponseEntity<>(service.Add(ticket), HttpStatus.OK);
         } catch (CustomException e) {
             return new ResponseEntity<>(e.mes, HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
@@ -73,9 +77,11 @@ public class TicketController {
     }
 
     @RequestMapping(path = "/ticket/{id}", method = RequestMethod.PUT)
-    ResponseEntity<?> Update(@RequestBody Ticket ticket, @PathVariable int id) {
+    ResponseEntity<?> Update(@PathVariable Integer id, @RequestBody Ticket ticket) {
         try {
+            kafkaProducer.sendMessage("update.entity", ticket);
             Ticket res = service.Update(id, ticket);
+            res.setId(id);
             return new ResponseEntity<>(res, HttpStatus.OK);
         } catch (CustomException e) {
             return new ResponseEntity<>(e.mes, HttpStatus.BAD_REQUEST);

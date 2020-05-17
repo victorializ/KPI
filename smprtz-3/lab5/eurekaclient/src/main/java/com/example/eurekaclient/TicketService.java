@@ -26,11 +26,7 @@ public class TicketService {
         repository.save(existing);
     }
 
-    public Ticket Update(Integer id, Ticket item) throws CustomException, ParseException {
-        Ticket ticket = repository.findById(item.getId()).orElseThrow(() -> new CustomException("Ticket wasn't found"));
-        if (ticket.isDeleted()) throw new CustomException("Ticket wasn't found");
-        SanityChecks(item);
-
+    public Ticket Update(Integer id, Ticket ticket) throws CustomException, ParseException {
         repository.customUpdate(id, ticket.getEvent(),
                 (new SimpleDateFormat("dd/MM/yyyy HH:mm:ss")).parse(ticket.getDate()),
                 ticket.getLocation(), ticket.getZone(),

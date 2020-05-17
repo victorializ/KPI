@@ -34,13 +34,13 @@ services:
     image: grafana/grafana
     ports:
       - "3000:3000"
-  
+
   zookeeper:
     image: wurstmeister/zookeeper
     ports:
       - "2181:2181"
     hostname: zookeeper
-    
+        
   kafka:
     image: wurstmeister/kafka
     command: [start-kafka.sh]
@@ -79,3 +79,45 @@ services:
       - "8888:8888"
     depends_on:
       - eurekaserver
+  
+  spring-cloud-eureka-feign-client:
+    hostname: spring-cloud-eureka-feign-client
+    environment:
+      - EUREKA_SERVER=http://eurekaserver:8761/eureka
+      - CONFIG_SERVER=http://configserver:8888
+      - RABBIT=rabbit
+      - WAITFORIT_HOST=configserver
+      - WAITFORIT_PORT=8888
+      - WAITFORIT_TIMEOUT=250
+    build:
+      context: apigateway
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - configserver  
+
+  ticket-service:
+    hostname: ticket-service
+    environment:
+      - EUREKA_SERVER=http://eurekaserver:8761/eureka
+      - CONFIG_SERVER=http://configserver:8888
+      - MYSQL=mysql:3306
+      - RABBIT=rabbit
+      - PORT=8082
+      - WAITFORIT_HOST=configserver
+      - WAITFORIT_PORT=8888
+      - WAITFORIT_TIMEOUT=250
+    build:
+      context: eurekaclient
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    depends_on:
+      - spring-cloud-eureka-feign-client
+
+  consumer:
+    hostname: consumer
+    build:
+      context: consumer
+      dockerfile: Dockerfile
