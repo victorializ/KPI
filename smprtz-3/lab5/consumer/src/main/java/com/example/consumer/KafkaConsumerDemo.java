@@ -42,7 +42,7 @@ public class KafkaConsumerDemo {
                 ConsumerRecords<String, String> records = consumer.poll(Duration.ofSeconds(1));
 
                 for (ConsumerRecord<String, String> record : records) {
-                    System.out.printf("\n\nCONSUMER RECORD:(%s, %s, %d, %d)\n",
+                    System.out.printf("\n\nConsumer Record:(%s, %s, %d, %d)\n",
                             record.key(), record.value(),
                             record.partition(), record.offset());
                 }
