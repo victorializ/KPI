@@ -1,7 +1,7 @@
 package com.gateway.apigateway.User;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,26 +19,28 @@ public class UserController {
         return client.register(user);
     }
 
-    @RequestMapping(path="/signin", method = RequestMethod.GET)
-    public @ResponseBody String signin(@RequestBody User user) {
-        return client.signin(user);
+    @RequestMapping(path="/login", method = RequestMethod.POST)
+    public @ResponseBody String login(@RequestBody User user) {
+        return client.login(user);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(path="", method = RequestMethod.GET)
-    public @ResponseBody Iterable<User> getAll() {
+    public @ResponseBody Iterable<User> getAll(@RequestHeader(value = "Authorization") String token) {
+        client.isAdmin(token);
         return client.getAll();
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(path="/{id}", method = RequestMethod.GET)
-    public @ResponseBody User getById(@PathVariable int id) {
+    public @ResponseBody User getById(@PathVariable int id,
+                                      @RequestHeader(value = "Authorization") String token) {
+        client.isAdmin(token);
         return client.getById(id);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(path="/find/{email}", method = RequestMethod.GET)
-    public @ResponseBody User getIdByEmail(@PathVariable String email) {
+    public @ResponseBody User getIdByEmail(@PathVariable String email,
+                                           @RequestHeader(value = "Authorization") String token) {
+        client.isAdmin(token);
         return client.getIdByEmail(email);
     }
 }

@@ -1,8 +1,8 @@
 package com.gateway.apigateway.Booking;
 
 import com.gateway.apigateway.CustomException;
+import com.gateway.apigateway.User.UserClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,15 +13,19 @@ public class BookingController {
     @Autowired
     BookingClient client;
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Autowired
+    UserClient userClient;
+
     @RequestMapping(path="", method = RequestMethod.POST)
-    public @ResponseBody Booking add(@RequestBody Booking booking) {
+    public @ResponseBody Booking add(@RequestBody Booking booking,
+                                     @RequestHeader(value = "Authorization") String token) {
+        userClient.isAdmin(token);
         return client.add(booking);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(path="", method = RequestMethod.GET)
-    public @ResponseBody Iterable<Booking> getAll() {
+    public @ResponseBody Iterable<Booking> getAll(@RequestHeader(value = "Authorization") String token) {
+        userClient.isAdmin(token);
         return client.getAll();
     }
 
@@ -30,21 +34,24 @@ public class BookingController {
         return client.getById(id);
     };
 
-    @PreAuthorize("hasRole('ROLE_CLIENT')")
     @RequestMapping(path = "/user/{id}", method = RequestMethod.GET)
-    public @ResponseBody Iterable<Booking> getUsersOrders(@PathVariable Integer id) {
+    public @ResponseBody Iterable<Booking> getUsersOrders(@PathVariable Integer id,
+                                                          @RequestHeader(value = "Authorization") String token) {
+        userClient.isClient(token);
         return client.getUsersOrders(id);
     }
 
-    @PreAuthorize("hasRole('ROLE_CLIENT')")
     @RequestMapping(path = "/equipment/{id}", method = RequestMethod.GET)
-    public @ResponseBody Iterable<Booking> getEquipmentOrders(@PathVariable Integer id) {
+    public @ResponseBody Iterable<Booking> getEquipmentOrders(@PathVariable Integer id,
+                                                              @RequestHeader(value = "Authorization") String token) {
+        userClient.isClient(token);
         return client.getEquipmentOrders(id);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(path="/{id}", method = RequestMethod.DELETE)
-    public @ResponseBody String delete(@PathVariable Integer id) throws CustomException {
+    public @ResponseBody String delete(@PathVariable Integer id,
+                                       @RequestHeader(value = "Authorization") String token) throws CustomException {
+        userClient.isAdmin(token);
         return client.delete(id);
     }
 }

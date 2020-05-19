@@ -13,6 +13,7 @@ Content-type: application/json
 ### Create ticket
 POST http://localhost:8080/equipment
 Content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsImF1dGgiOiJST0xFX0FETUlOIiwiaWF0IjoxNTg5OTA1MDk0LCJleHAiOjE1ODk5MDg2OTR9.aGNBYKQ-SBkOD_EmZXa25K4BScTT5Riw99nGBMwyZmY
 
 {
   "name": "tent",
@@ -25,46 +26,54 @@ Content-type: application/json
 ### Update entity
 PUT http://localhost:8080/equipment/1
 Content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsImF1dGgiOiJST0xFX0FETUlOIiwiaWF0IjoxNTg5OTA1MDk0LCJleHAiOjE1ODk5MDg2OTR9.aGNBYKQ-SBkOD_EmZXa25K4BScTT5Riw99nGBMwyZmY
 
 {
   "name": "tent",
   "price": "18",
   "type": "tent",
-  "rating": "4",
+  "rating": "1",
   "description": "Norm"
 }
 
 ### Delete entity
 DELETE http://localhost:8080/equipment/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsImF1dGgiOiJST0xFX0FETUlOIiwiaWF0IjoxNTg5OTA1MDk0LCJleHAiOjE1ODk5MDg2OTR9.aGNBYKQ-SBkOD_EmZXa25K4BScTT5Riw99nGBMwyZmY
 
 ### Fetch entities
 GET http://localhost:8080/booking
 Content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsImF1dGgiOiJST0xFX0FETUlOIiwiaWF0IjoxNTg5OTA1MDk0LCJleHAiOjE1ODk5MDg2OTR9.aGNBYKQ-SBkOD_EmZXa25K4BScTT5Riw99nGBMwyZmY
 
 ### Fetch entity
 GET http://localhost:8080/booking/1
 Content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbm5hQGdtYWlsLmNvbSIsImF1dGgiOiJST0xFX0NMSUVOVCIsImlhdCI6MTU4OTkwNTQ3MCwiZXhwIjoxNTg5OTA5MDcwfQ.0knCsP3eKG4d3N15PBNWebCi8xEPPuEADrO-ubjQDuo
 
 ### Fetch entity
 GET http://localhost:8080/booking/user/1
 Content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbm5hQGdtYWlsLmNvbSIsImF1dGgiOiJST0xFX0NMSUVOVCIsImlhdCI6MTU4OTkwNTQ3MCwiZXhwIjoxNTg5OTA5MDcwfQ.0knCsP3eKG4d3N15PBNWebCi8xEPPuEADrO-ubjQDuo
 
 ### Fetch entity
 GET http://localhost:8080/booking/equipment/1
 Content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbm5hQGdtYWlsLmNvbSIsImF1dGgiOiJST0xFX0NMSUVOVCIsImlhdCI6MTU4OTkwNTQ3MCwiZXhwIjoxNTg5OTA5MDcwfQ.0knCsP3eKG4d3N15PBNWebCi8xEPPuEADrO-ubjQDuo
 
 ### Create ticket
 POST http://localhost:8080/booking
 Content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsImF1dGgiOiJST0xFX0FETUlOIiwiaWF0IjoxNTg5OTA1MDk0LCJleHAiOjE1ODk5MDg2OTR9.aGNBYKQ-SBkOD_EmZXa25K4BScTT5Riw99nGBMwyZmY
 
 {
   "touristId": "1",
-  "equipmentId": "2",
+  "equipmentId": "6",
   "date": "05/07/2020 20:00:00"
 }
 
 ### Delete entity
 DELETE http://localhost:8080/booking/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsImF1dGgiOiJST0xFX0FETUlOIiwiaWF0IjoxNTg5OTA1MDk0LCJleHAiOjE1ODk5MDg2OTR9.aGNBYKQ-SBkOD_EmZXa25K4BScTT5Riw99nGBMwyZmY
 
 ### Fetch entities
 GET http://localhost:8080/feedback
@@ -85,9 +94,10 @@ Content-type: application/json
 ### Create ticket
 POST http://localhost:8080/feedback
 Content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbm5hQGdtYWlsLmNvbSIsImF1dGgiOiJST0xFX0NMSUVOVCIsImlhdCI6MTU4OTkwNTQ3MCwiZXhwIjoxNTg5OTA5MDcwfQ.0knCsP3eKG4d3N15PBNWebCi8xEPPuEADrO-ubjQDuo
 
 {
-  "bookingId": "1",
+  "bookingId": "7",
   "rating": "3",
   "text": "Norm",
   "date": "05/07/2020 20:00:00"
@@ -97,7 +107,7 @@ Content-type: application/json
 DELETE http://localhost:8080/feedback/1
 
 ### Fetch entity
-GET http://localhost:8080/user/signin
+POST http://localhost:8080/user/login
 Content-type: application/json
 
 {
@@ -106,7 +116,7 @@ Content-type: application/json
 }
 
 ### Fetch entity
-GET http://localhost:8080/user/signin
+POST http://localhost:8080/user/login
 Content-type: application/json
 
 {
@@ -120,7 +130,7 @@ Content-type: application/json
 
 {
   "name": "Anna",
-  "email": "anna1@gmail.com",
+  "email": "anna@gmail.com",
   "password": "P@ssw0rd"
 }
 
@@ -137,14 +147,14 @@ Content-type: application/json
 ### Fetch entity
 GET http://localhost:8080/user
 Content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsImF1dGgiOiJST0xFX0FETUlOIiwiaWF0IjoxNTg5ODI4NzE1LCJleHAiOjE1ODk4MzIzMTV9.yTw51BjNRUOB6JdSrtjsjnR14Wbn7ZRfZ-sNi7rFrHg
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsImF1dGgiOiJST0xFX0FETUlOIiwiaWF0IjoxNTg5OTA1MDk0LCJleHAiOjE1ODk5MDg2OTR9.aGNBYKQ-SBkOD_EmZXa25K4BScTT5Riw99nGBMwyZmY
 
 ### Fetch entity
-GET http://localhost:8080/user/1
+GET http://localhost:8085/user/isAdmin
 Content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsImF1dGgiOiJST0xFX0FETUlOIiwiaWF0IjoxNTg5ODI4NzE1LCJleHAiOjE1ODk4MzIzMTV9.yTw51BjNRUOB6JdSrtjsjnR14Wbn7ZRfZ-sNi7rFrHg
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsImF1dGgiOiJST0xFX0FETUlOIiwiaWF0IjoxNTg5OTA1MDk0LCJleHAiOjE1ODk5MDg2OTR9.aGNBYKQ-SBkOD_EmZXa25K4BScTT5Riw99nGBMwyZmY
 
 ### Fetch entity
 GET http://localhost:8080/user/find/anna@gmail.com
 Content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsImF1dGgiOiJST0xFX0FETUlOIiwiaWF0IjoxNTg5ODI4NzE1LCJleHAiOjE1ODk4MzIzMTV9.yTw51BjNRUOB6JdSrtjsjnR14Wbn7ZRfZ-sNi7rFrHg
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsImF1dGgiOiJST0xFX0FETUlOIiwiaWF0IjoxNTg5OTA1MDk0LCJleHAiOjE1ODk5MDg2OTR9.aGNBYKQ-SBkOD_EmZXa25K4BScTT5Riw99nGBMwyZmY

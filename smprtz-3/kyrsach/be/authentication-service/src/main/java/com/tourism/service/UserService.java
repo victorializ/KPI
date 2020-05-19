@@ -39,7 +39,9 @@ public class UserService {
         return json.toString();
     }
 
-    public String signin(String username, String password) {
+    public String login(User u) {
+        String username = u.getEmail();
+        String password = u.getPassword();
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
             User user =  userRepository.findByEmail(username);

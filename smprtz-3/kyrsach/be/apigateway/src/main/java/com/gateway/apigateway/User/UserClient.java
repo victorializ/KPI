@@ -1,7 +1,6 @@
 package com.gateway.apigateway.User;
 
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.NoSuchAlgorithmException;
@@ -11,8 +10,8 @@ public interface UserClient {
     @RequestMapping(path="/user/register",  method = RequestMethod.POST)
     public @ResponseBody String register(@RequestBody User user) throws NoSuchAlgorithmException;
 
-    @RequestMapping(path="/user/signin", method = RequestMethod.GET)
-    public @ResponseBody String signin(@RequestBody User user);
+    @RequestMapping(path="/user/login", method = RequestMethod.POST)
+    public @ResponseBody String login(@RequestBody User user);
 
     @RequestMapping(path="/user", method = RequestMethod.GET)
     public @ResponseBody Iterable<User> getAll();
@@ -22,4 +21,10 @@ public interface UserClient {
 
     @RequestMapping(path="/user/find/{email}", method = RequestMethod.GET)
     public @ResponseBody User getIdByEmail(@PathVariable String email);
+
+    @RequestMapping(path="/user/isAdmin", method = RequestMethod.GET)
+    public @ResponseBody Boolean isAdmin(@RequestHeader(value = "Authorization") String token);
+
+    @RequestMapping(path="/user/isClient", method = RequestMethod.GET)
+    public @ResponseBody Boolean isClient(@RequestHeader(value = "Authorization") String token);
 }

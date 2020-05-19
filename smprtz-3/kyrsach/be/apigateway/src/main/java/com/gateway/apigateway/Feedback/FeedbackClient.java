@@ -1,6 +1,5 @@
 package com.gateway.apigateway.Feedback;
 
-import com.gateway.apigateway.Booking.Booking;
 import com.gateway.apigateway.CustomException;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;

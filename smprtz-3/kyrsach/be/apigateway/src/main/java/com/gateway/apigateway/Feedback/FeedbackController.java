@@ -5,8 +5,8 @@ import com.gateway.apigateway.Booking.BookingClient;
 import com.gateway.apigateway.CustomException;
 import com.gateway.apigateway.Equipment.Equipment;
 import com.gateway.apigateway.Equipment.EquipmentClient;
+import com.gateway.apigateway.User.UserClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,12 +25,17 @@ public class FeedbackController {
     @Autowired
     BookingClient bookingClient;
 
-    @PreAuthorize("hasRole('ROLE_CLIENT')")
+    @Autowired
+    UserClient userClient;
+
+    //@PreAuthorize("hasRole('ROLE_CLIENT')")
     @RequestMapping(path="", method = RequestMethod.POST)
-    public @ResponseBody Feedback add(@RequestBody Feedback feedback) throws CustomException {
+    public @ResponseBody Feedback add(@RequestBody Feedback feedback,
+                                      @RequestHeader(value = "Authorization") String token) throws CustomException {
+        userClient.isClient(token);
         Integer equipmentId = bookingClient.getById(feedback.getBookingId()).getEquipmentId();
         Equipment equipment = equipmentClient.getById(equipmentId);
-        equipment.setRating(equipment.getRating() + feedback.getRating());
+        equipment.setRating((equipment.getRating() + feedback.getRating())/2);
         equipmentClient.update(equipmentId, equipment);
         return client.add(feedback);
     }
@@ -60,9 +65,11 @@ public class FeedbackController {
         return feedbacks;
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(path="/{id}", method = RequestMethod.DELETE)
-    public @ResponseBody String delete(@PathVariable Integer id) throws CustomException {
+    public @ResponseBody String delete(@PathVariable Integer id,
+                                       @RequestHeader(value = "Authorization") String token) throws CustomException {
+        userClient.isAdmin(token);
         return client.delete(id);
     }
 }

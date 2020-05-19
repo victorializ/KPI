@@ -1,10 +1,9 @@
 package com.gateway.apigateway.Equipment;
 
 import com.gateway.apigateway.CustomException;
-import com.gateway.apigateway.Feedback.Feedback;
 import com.gateway.apigateway.Feedback.FeedbackClient;
+import com.gateway.apigateway.User.UserClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,9 +17,13 @@ public class EquipmentController {
     @Autowired
     FeedbackClient feedbackClient;
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Autowired
+    UserClient userClient;
+
     @RequestMapping(path="", method = RequestMethod.POST)
-    public @ResponseBody Equipment add(@RequestBody Equipment equipment) {
+    public @ResponseBody Equipment add(@RequestBody Equipment equipment,
+                                       @RequestHeader(value = "Authorization") String token) {
+        userClient.isAdmin(token);
         return client.add(equipment);
     }
 
@@ -44,16 +47,18 @@ public class EquipmentController {
         return client.getByFilter(type);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
     @RequestMapping(path="/{id}", method = RequestMethod.PUT)
     public @ResponseBody Equipment update(@PathVariable Integer id,
-                                          @RequestBody Equipment equipment) throws CustomException {
+                                          @RequestBody Equipment equipment,
+                                          @RequestHeader(value = "Authorization") String token) throws CustomException {
+        userClient.isAdmin(token);
         return client.update(id, equipment);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(path="/{id}", method = RequestMethod.DELETE)
-    public @ResponseBody String delete(@PathVariable Integer id) throws CustomException {
+    public @ResponseBody String delete(@PathVariable Integer id,
+                                       @RequestHeader(value = "Authorization") String token) throws CustomException {
+        userClient.isAdmin(token);
         return client.delete(id);
     }
 }

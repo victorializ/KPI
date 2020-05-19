@@ -5,7 +5,6 @@ public class User {
     private String name;
     private String email;
     private String password;
-    private Role role;
 
     public void setPassword(String password) {this.password = password; }
 
@@ -33,13 +32,5 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
     }
 }

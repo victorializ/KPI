@@ -23,9 +23,9 @@ public class UserController {
         return userService.register(user);
     }
 
-    @RequestMapping(path="/signin", method = RequestMethod.GET)
-    public @ResponseBody String signin(@RequestBody User user) {
-        return userService.signin(user.getEmail(), user.getPassword());
+    @RequestMapping(path="/login", method = RequestMethod.POST)
+    public @ResponseBody String login(@RequestBody User user) {
+        return userService.login(user);
     }
 
     @RequestMapping(path="", method = RequestMethod.GET)
@@ -41,5 +41,17 @@ public class UserController {
     @RequestMapping(path="/find/{email}", method = RequestMethod.GET)
     public @ResponseBody User getIdByEmail(@PathVariable String email) {
         return repository.findByEmail(email);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @RequestMapping(path="/isAdmin", method = RequestMethod.GET)
+    public @ResponseBody Boolean isAdmin() {
+        return true;
+    }
+
+    @PreAuthorize("hasRole('ROLE_CLIENT')")
+    @RequestMapping(path="/isClient", method = RequestMethod.GET)
+    public @ResponseBody Boolean isClient() {
+        return true;
     }
 }

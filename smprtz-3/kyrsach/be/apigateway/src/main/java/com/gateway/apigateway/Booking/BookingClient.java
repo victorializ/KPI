@@ -1,6 +1,6 @@
 package com.gateway.apigateway.Booking;
 
-import com.gateway.apigateway.sequrity.CustomException;
+import com.gateway.apigateway.CustomException;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
