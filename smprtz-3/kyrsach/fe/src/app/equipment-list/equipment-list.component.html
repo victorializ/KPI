@@ -1,0 +1,18 @@
+<div class="wrapper">
+    <form>
+        <mat-form-field class="example-full-width" class="item">
+            <input matInput placeholder="Name" [(ngModel)]="name" name="name">
+        </mat-form-field>
+    </form>
+    <button mat-stroked-button color="primary" *ngIf="sort" (click)="toggleSort()">Sorted</button>
+    <button mat-stroked-button color="primary" *ngIf="!sort" (click)="toggleSort()">Unsorted</button>
+    <ng-container *ngFor="let item of eq | async" class="card">
+        <mat-card *ngIf="item.name === name || name === ''" class="card"> 
+            <mat-card-title [routerLink]="['/equipment', item.id]">{{item.name}}</mat-card-title>
+            <div class="group">
+                <mat-card-subtitle>{{item.price}}</mat-card-subtitle>
+                <mat-card-subtitle>$</mat-card-subtitle>
+            </div>
+        </mat-card>
+    </ng-container>
+</div>

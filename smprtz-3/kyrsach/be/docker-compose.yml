@@ -1,0 +1,94 @@
+version: '3.7'
+services:
+  mysql:
+    hostname: mysql
+    image: mysql:5.7
+    restart: always
+    logging:
+      driver: none
+    environment:
+      MYSQL_DATABASE: 'tourism'
+      MYSQL_USER: 'admin'
+      MYSQL_PASSWORD: 'P@ssw0rd'
+      MYSQL_ROOT_PASSWORD: 'P@ssw0rd'
+    ports:
+      - '3306:3306'
+
+  eurekaserver:
+    hostname: eurekaserver
+    build:
+      context: eurekaserver
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+    depends_on:
+      - mysql
+ 
+  equipment-service:
+    hostname: equipment-service
+    environment:
+      - PORT=8082
+      - EUREKA_SERVER=http://eurekaserver:8761/eureka
+      - MYSQL=mysql:3306
+    build:
+     context: equipment-service
+     dockerfile: Dockerfile
+    ports:
+     - "8082:8082"
+    depends_on:
+     - eurekaserver
+    
+  booking-service:
+    hostname: booking-service
+    environment:
+      - PORT=8083
+      - EUREKA_SERVER=http://eurekaserver:8761/eureka
+      - MYSQL=mysql:3306
+    build:
+      context: booking-service
+      dockerfile: Dockerfile
+    ports:
+      - "8083:8083"
+    depends_on:
+      - eurekaserver
+  
+  feedback-service:
+    hostname: feedback-service
+    environment:
+      - PORT=8084
+      - EUREKA_SERVER=http://eurekaserver:8761/eureka
+      - MYSQL=mysql:3306
+    build:
+      context: feedback-service
+      dockerfile: Dockerfile
+    ports:
+      - "8084:8084"
+    depends_on:
+      - eurekaserver
+
+  authentication-service:
+    hostname: authentication-service
+    environment:
+      - PORT=8085
+      - EUREKA_SERVER=http://eurekaserver:8761/eureka
+      - MYSQL=mysql:3306
+    build:
+      context: authentication-service
+      dockerfile: Dockerfile
+    ports:
+      - "8085:8085"
+    depends_on:
+      - eurekaserver
+
+  apigateway:
+    hostname: apigateway
+    environment:
+      - PORT=8080
+      - EUREKA_SERVER=http://eurekaserver:8761/eureka
+    build:
+      context: apigateway
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - eurekaserver
