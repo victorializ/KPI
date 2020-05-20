@@ -16,8 +16,7 @@ public class EquipmentController {
     @RequestMapping(path="", method = RequestMethod.POST)
     public @ResponseBody
     Equipment add(@RequestBody Equipment equipment) {
-        repository.save(equipment);
-        return equipment;
+        return  repository.save(equipment);
     }
 
     @RequestMapping(path="", method = RequestMethod.GET)

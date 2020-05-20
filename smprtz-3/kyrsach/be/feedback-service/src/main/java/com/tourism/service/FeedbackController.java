@@ -38,4 +38,10 @@ public class FeedbackController {
         repository.delete(existing);
         return "Deleted";
     }
+
+    @RequestMapping(path="/equipment/{id}", method = RequestMethod.DELETE)
+    public @ResponseBody String deleteByEquipmentId(@PathVariable Integer id) throws CustomException {
+        repository.deleteByEquipmentId(id);
+        return "Deleted";
+    }
 }

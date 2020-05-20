@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+
 @Controller
 @RequestMapping(path="/booking")
 public class BookingController {
@@ -12,9 +14,12 @@ public class BookingController {
     private BookingRepository repository;
 
     @RequestMapping(path="", method = RequestMethod.POST)
-    public @ResponseBody Booking add(@RequestBody Booking booking) {
-        repository.save(booking);
-        return booking;
+    public @ResponseBody Booking add(@RequestBody Booking booking) throws ParseException {
+        Booking b = new Booking();
+        b.setDate(booking.getDate());
+        b.setEquipmentId(booking.getEquipmentId());
+        b.setTouristId(booking.getTouristId());
+        return repository.save(b);
     }
 
     @RequestMapping(path="", method = RequestMethod.GET)
@@ -41,6 +46,12 @@ public class BookingController {
     public @ResponseBody String delete(@PathVariable Integer id) throws CustomException {
         Booking existing = repository.findById(id).orElseThrow(() -> new CustomException("Item wasn't found"));
         repository.delete(existing);
+        return "Deleted";
+    }
+
+    @RequestMapping(path="/equipment/{id}", method = RequestMethod.DELETE)
+    public @ResponseBody String deleteByEquipmentId(@PathVariable Integer id) throws CustomException {
+        repository.deleteByEquipmentId(id);
         return "Deleted";
     }
 }

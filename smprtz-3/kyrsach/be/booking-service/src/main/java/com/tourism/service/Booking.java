@@ -12,7 +12,7 @@ public class Booking {
     private Integer id;
     private Integer touristId;
     private Integer equipmentId;
-    private Date date;
+    private String date;
 
     public Integer getId() {
         return id;
@@ -23,11 +23,11 @@ public class Booking {
     }
 
     public String getDate() {
-        return (new SimpleDateFormat("dd/MM/yyyy HH:mm:ss")).format(date);
+        return this.date;
     }
 
     public void setDate(String date) throws ParseException {
-        this.date = (new SimpleDateFormat("dd/MM/yyyy HH:mm:ss")).parse(date);
+        this.date = date;
     }
 
     public Integer getTouristId() {

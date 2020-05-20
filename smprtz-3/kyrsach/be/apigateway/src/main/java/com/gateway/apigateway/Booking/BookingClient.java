@@ -23,4 +23,7 @@ public interface BookingClient {
 
     @RequestMapping(path="/booking/{id}", method = RequestMethod.DELETE)
     public @ResponseBody String delete(@PathVariable Integer id) throws CustomException;
+
+    @RequestMapping(path="/booking/equipment/{id}", method = RequestMethod.DELETE)
+    public @ResponseBody String deleteByEquipmentId(@PathVariable Integer id) throws CustomException;
 }

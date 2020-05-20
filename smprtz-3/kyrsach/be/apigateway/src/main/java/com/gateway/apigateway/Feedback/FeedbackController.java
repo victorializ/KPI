@@ -28,7 +28,6 @@ public class FeedbackController {
     @Autowired
     UserClient userClient;
 
-    //@PreAuthorize("hasRole('ROLE_CLIENT')")
     @RequestMapping(path="", method = RequestMethod.POST)
     public @ResponseBody Feedback add(@RequestBody Feedback feedback,
                                       @RequestHeader(value = "Authorization") String token) throws CustomException {
@@ -41,7 +40,7 @@ public class FeedbackController {
     }
 
     @RequestMapping(path="", method = RequestMethod.GET)
-    public @ResponseBody Iterable<Feedback> getAll() {
+    public @ResponseBody Iterable<Feedback> getAll() throws CustomException {
         return client.getAll();
     }
 
@@ -56,13 +55,8 @@ public class FeedbackController {
     }
 
     @RequestMapping(path = "/equipment/{id}", method = RequestMethod.GET)
-    public @ResponseBody Iterable<Feedback> getByEquipmentId(@PathVariable Integer id) {
-        Iterable<Booking> bookings = bookingClient.getEquipmentOrders(id);
-        List<Feedback> feedbacks = (List<Feedback>) client.getAll();
-        for (Booking b : bookings) {
-            feedbacks.removeIf(f -> !b.getId().equals(f.getBookingId()));
-        }
-        return feedbacks;
+    public @ResponseBody Iterable<Feedback> getByEquipmentId(@PathVariable Integer id) throws CustomException {
+        return client.getAll();
     }
 
     //@PreAuthorize("hasRole('ROLE_ADMIN')")

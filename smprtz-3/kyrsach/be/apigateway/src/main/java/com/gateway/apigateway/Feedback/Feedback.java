@@ -1,5 +1,7 @@
 package com.gateway.apigateway.Feedback;
 
+import com.gateway.apigateway.Booking.Booking;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,6 +12,8 @@ public class Feedback {
     private Date date;
     private Integer rating;
     private String text;
+
+    private Integer equipmentId;
 
     public Integer getId() {
         return id;
@@ -50,4 +54,13 @@ public class Feedback {
     public void setText(String text) {
         this.text = text;
     }
+
+    public Integer getEquipmentId() {
+        return equipmentId;
+    }
+
+    public void setEquipmentId(Integer equipmentId) {
+        this.equipmentId = equipmentId;
+    }
+
 }

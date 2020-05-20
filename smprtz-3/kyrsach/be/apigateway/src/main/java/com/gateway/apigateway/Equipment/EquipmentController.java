@@ -1,6 +1,9 @@
 package com.gateway.apigateway.Equipment;
 
+import com.gateway.apigateway.Booking.Booking;
+import com.gateway.apigateway.Booking.BookingClient;
 import com.gateway.apigateway.CustomException;
+import com.gateway.apigateway.Feedback.Feedback;
 import com.gateway.apigateway.Feedback.FeedbackClient;
 import com.gateway.apigateway.User.UserClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,9 @@ public class EquipmentController {
 
     @Autowired
     FeedbackClient feedbackClient;
+
+    @Autowired
+    BookingClient bookingClient;
 
     @Autowired
     UserClient userClient;
@@ -59,6 +65,8 @@ public class EquipmentController {
     public @ResponseBody String delete(@PathVariable Integer id,
                                        @RequestHeader(value = "Authorization") String token) throws CustomException {
         userClient.isAdmin(token);
+        feedbackClient.deleteByEquipmentId(id);
+        bookingClient.deleteByEquipmentId(id);
         return client.delete(id);
     }
 }

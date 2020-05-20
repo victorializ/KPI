@@ -11,6 +11,7 @@ public class Feedback {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private Integer bookingId;
+    private Integer equipmentId;
     private Date date;
     private Integer rating;
     private String text;
@@ -54,6 +55,15 @@ public class Feedback {
     public void setText(String text) {
         this.text = text;
     }
+
+    public Integer getEquipmentId() {
+        return equipmentId;
+    }
+
+    public void setEquipmentId(Integer equipmentId) {
+        this.equipmentId = equipmentId;
+    }
+
 
     @Override
     public String toString() {
