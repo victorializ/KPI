@@ -1,14 +1,47 @@
-<div>
-    <mat-card *ngIf="item$ | async as item" class="card"> 
-        <mat-card-title>{{item.name}}</mat-card-title>
-        <mat-card-title>{{item.type}}</mat-card-title>
-        <div class="price">
-            <mat-card-subtitle>{{item.price}}</mat-card-subtitle>
-            <mat-card-subtitle>$</mat-card-subtitle>
+<div class="wrapper">
+    <ng-container *ngIf="!isAdmin()">
+        <app-equipment-card [id]="id"></app-equipment-card>
+        <button mat-raised-button color="primary" (click)="order()">
+            Order
+        </button>
+        <div class="feedbacks">
+            <mat-card class="feedback" *ngFor="let item of feedbacks"> 
+                <p>{{item.date.split(' ')[0]}}</p> 
+                <p>{{item.text}}</p>
+                <div class="group">
+                    <mat-icon matSuffix *ngFor="let i of [].constructor(item.rating)">star</mat-icon>
+                </div>
+            </mat-card>
         </div>
-        <div class="button">
-            <button mat-stroked-button color="primary" [routerLink]="['/equipment']">Back</button>
-            <button mat-stroked-button color="primary" (click)="order(item.id)">Order</button>
+    </ng-container>
+    <ng-container *ngIf="isAdmin()">
+        <app-equipment-card [id]="id"></app-equipment-card>
+        <form>
+            <mat-form-field class="example-full-width" class="item">
+                <input matInput placeholder="Name" [(ngModel)]="name" name="name">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" class="item">
+                <input matInput placeholder="Type" [(ngModel)]="type" name="type">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" class="item">
+                <input matInput placeholder="Price" [(ngModel)]="price" name="price">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" class="item">
+                <input matInput placeholder="Description" [(ngModel)]="description" name="description">
+            </mat-form-field>
+        </form>
+        <div class="group">
+            <button mat-stroked-button color="primary" class="item" (click)="delete()">Delete</button>
+            <button mat-stroked-button color="primary" class="item" (click)="update()">Update</button>
         </div>
-    </mat-card>
+        <div class="feedbacks">
+            <mat-card class="feedback" *ngFor="let item of feedbacks"> 
+                <p>{{item.date.split(' ')[0]}}</p> 
+                <p>{{item.text}}</p>
+                <div class="group">
+                    <mat-icon matSuffix *ngFor="let i of [].constructor(item.rating)">star</mat-icon>
+                </div>
+            </mat-card>
+         </div>
+    </ng-container>
 </div>

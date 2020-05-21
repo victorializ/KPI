@@ -5,6 +5,7 @@ import { EquipmentDetailsComponent } from './equipment-details/equipment-details
 import { LoginComponent } from "./login/login.component";
 import { OrderListComponent } from './order-list/order-list.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
+import { OrderDetailsComponent } from './order-details/order-details.component';
 import { AuthGuard, AdminAuthGuard } from './services/auth-guard.service';
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'equipment/:id', component: EquipmentDetailsComponent},
   { path: "login", component: LoginComponent },
   { path: "order", component: OrderListComponent, canActivate: [AuthGuard] },
+  { path: "order/:id", component: OrderDetailsComponent, canActivate: [AuthGuard] },
   { path: "admin", component: AdminPageComponent, canActivate: [AdminAuthGuard]  }
 ];
 

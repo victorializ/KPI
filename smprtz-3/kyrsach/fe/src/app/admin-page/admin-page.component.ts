@@ -13,6 +13,7 @@ export class AdminPageComponent implements OnInit {
   public name;
   public price;
   public type;
+  public description;
 
   constructor(private _be: BackendService) { }
 
@@ -20,8 +21,8 @@ export class AdminPageComponent implements OnInit {
   }
 
   public add() {
-    if(this.name && this.type && this.price) {
-      this._be.addEquipment(this.name, this.type, this.price).subscribe(
+    if(this.name && this.type && this.price, this.description) {
+      this._be.addEquipment(this.name, this.type, this.price, 1, this.description).subscribe(
         () => alert("Saved!"),
         () => alert("Saved!")
       )
@@ -31,8 +32,8 @@ export class AdminPageComponent implements OnInit {
   }
 
   public update() {
-    if(this.id && (this.name || this.type || this.price)) {
-      this._be.updateEquipment(this.id, this.name, this.type, this.price).subscribe(
+    if(this.id && (this.name || this.type || this.price || this.description)) {
+      this._be.updateEquipment(this.id, this.name, this.type, this.price, 1, this.description).subscribe(
         () => alert("Updated!"),
         () => alert("Updated!")
       )

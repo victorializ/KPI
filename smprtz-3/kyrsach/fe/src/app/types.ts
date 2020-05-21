@@ -3,9 +3,11 @@ export interface Equipment {
     name: string;
     price: string;
     type: string;
+    rating: number;
+    description: string;
 }
 
-export interface Tourist {
+export interface User {
     id: number;
     name: string;
     email: string;
@@ -14,15 +16,24 @@ export interface Tourist {
 }
 
 export interface Auth {
-    user: Tourist;
+    user: User;
     token: string;
 }
 
 export interface Order {
     id: number;
     date: string;
-    tourist: Tourist;
+    touristId: string;
+    equipmentId: string;
     equipment: Equipment;
+}
+
+export interface Feedback {
+    id: number;
+    date: string;
+    rating: number;
+    text: string;
+    equipmentId: number;
 }
 
 export enum Roles { 

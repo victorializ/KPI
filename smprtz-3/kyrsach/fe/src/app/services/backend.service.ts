@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { map, tap, concatMap } from "rxjs/operators";
 import { HttpClient } from "@angular/common/http";
-import { Equipment, Auth, Roles } from "../types";
+import { Equipment, Auth, Roles, Feedback } from "../types";
 
 @Injectable({
   providedIn: "root"
@@ -10,14 +10,14 @@ import { Equipment, Auth, Roles } from "../types";
 export class BackendService {
     static apiPath = "http://localhost:8080/";
     static eqPath = "equipment";
-    static orderPath = "order";
-    static touristPath = "tourist";
-    static list = "list";
-    static new = "new";
+    static bookingPath = "booking";
+    static userPath = "user";
     static find = "find";
     static delete = "delete";
     static update = "update";
     static login = "login";
+    static register= "register";
+    static feedback="feedback";
 
     constructor(private _http: HttpClient) {}
 
@@ -45,8 +45,8 @@ export class BackendService {
     }
 
     public login(email, password) {
-        const url = `${BackendService.apiPath}${BackendService.touristPath}/${BackendService.login}/${email}/${password}`;
-        return this._http.get(url,
+        const url = `${BackendService.apiPath}${BackendService.userPath}/${BackendService.login}`;
+        return this._http.post(url, { email, password },
             { headers: this.getBasicHeaders() }
         ).pipe(
             tap((res: Auth) => this.auth = res)
@@ -55,6 +55,7 @@ export class BackendService {
 
     private getBasicHeaders() {
         const headers = {
+          'Content-type': 'application/json',
           'X-Requested-With': "", 
           'XMLHttpRequest': "",
           "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3"
@@ -71,8 +72,8 @@ export class BackendService {
     }
 
     public register(name, email, password) {
-        const url = `${BackendService.apiPath}${BackendService.touristPath}/${BackendService.new}/${name}/${email}/${password}`;
-        return this._http.get(url,  
+        const url = `${BackendService.apiPath}${BackendService.userPath}/${BackendService.register}`;
+        return this._http.post(url, {name, email, password},
             { headers: this.getBasicHeaders() }
         ).pipe(
             tap((res: Auth) => this.auth = res)
@@ -81,7 +82,7 @@ export class BackendService {
 
 
     public getEquipmentList() {
-        const url = `${BackendService.apiPath}${BackendService.eqPath}/${BackendService.list}`;
+        const url = `${BackendService.apiPath}${BackendService.eqPath}`;
         return this._http.get(url,
           { headers: this.getBasicHeaders() }
         )
@@ -94,56 +95,73 @@ export class BackendService {
         )
     }
 
-    public addEquipment(name: string, type: string, price: number) {
-        const url = `${BackendService.apiPath}${BackendService.eqPath}/${BackendService.new}`;
-        const data = new FormData();
-        data.append("name", name);
-        data.append("type", type);
-        data.append("price", price.toString());
-        return this._http.post(url, data,
+    public addEquipment(name: string, type: string, price: number, 
+        rating: number, description: string) {
+        const url = `${BackendService.apiPath}${BackendService.eqPath}`;
+        return this._http.post(url, {name, type, price, rating, description},
             { headers: this.getAuthHeaders() },
         )
     }
     
     public deleteEquipment(id: number) {
-        const url = `${BackendService.apiPath}${BackendService.eqPath}/${BackendService.delete}/${id}`;
-        return this._http.get(url,
+        const url = `${BackendService.apiPath}${BackendService.eqPath}/${id}`;
+        return this._http.delete(url,
           { headers: this.getAuthHeaders() }
         )
     }
 
-    public updateEquipment(id: number, name: string, type: string, price: number) {
-        const url = `${BackendService.apiPath}${BackendService.eqPath}/${BackendService.update}/${id}`;
-        return this.getEquipmentDetails(id.toString()).pipe(
-            map((res: Equipment) => {
-                const data = new FormData();
-                data.append("name", name ? name : res.name);
-                data.append("type", type ? type : res.type);
-                data.append("price", price ? price.toString() : res.price.toString());
-                return data;
-            }),
-            concatMap((data)=> 
-                this._http.post(url, data,
-            { headers: this.getAuthHeaders() })
-            )
-        );
+    public updateEquipment(id: number, name: string, type: string, 
+            price: number, rating: number, description: string) {
+        const url = `${BackendService.apiPath}${BackendService.eqPath}/${id}`;
+
+        return this._http.put(url, {name, type, price, rating, description},
+            { headers: this.getAuthHeaders() }
+          )
     }
 
-    public addOrder(equipmentId: string) {
-        const url = `${BackendService.apiPath}${BackendService.orderPath}/${BackendService.new}`;
-        const data = new FormData();
-        data.append("touristId", this.auth.user.id.toString());
-        data.append("equipmentId", equipmentId);
-        return this._http.post(url, data,
+    public addBooking(equipmentId) {
+        const date = '05/07/2020 20:00:00';
+        const url = `${BackendService.apiPath}${BackendService.bookingPath}`;
+        return this._http.post(url, {touristId:  this.auth.user.id.toString(), equipmentId, date},
             { headers: this.getAuthHeaders() },
         )
     }
 
-    public getOrdersList() {
-        const url = `${BackendService.apiPath}${BackendService.orderPath}/${BackendService.list}/${this.auth.user.id}`;
+    public getBookingsList() {
+        const url = (this.isLoggedIn() && this.isAdmin()) ? 
+        `${BackendService.apiPath}${BackendService.bookingPath}` :
+        `${BackendService.apiPath}${BackendService.bookingPath}/${BackendService.userPath}/${this.auth.user.id}`;
+        
         return this._http.get(url,
             { headers: this.getAuthHeaders() }
-        )
+        );
     }
+
+    public getBooking(id) {
+        const url = `${BackendService.apiPath}${BackendService.bookingPath}/${id}`;
+        return this._http.get(url,
+            { headers: this.getAuthHeaders() }
+        );
+    }
+
+    public getFeedbacksByEquipmentList(id) {
+        const url = `${BackendService.apiPath}${BackendService.feedback}`;
+        return this._http.get(url,
+            { headers: this.getBasicHeaders() }
+        ).pipe(
+            map((res: Array<Feedback>) => res.filter(f => {
+                return Number(f.equipmentId) ===  Number(id);
+            }))
+        );
+    }
+
+    public postFeedback(bookingId, text, rating, equipmentId) {
+        const date = '05/07/2020 20:00:00';
+        const url = `${BackendService.apiPath}${BackendService.feedback}`;
+        return this._http.post(url, {bookingId, text, rating, date, equipmentId},
+            { headers: this.getAuthHeaders() }
+        );
+    }
+
 }
   

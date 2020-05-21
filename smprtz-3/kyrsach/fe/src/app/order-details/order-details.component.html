@@ -1,0 +1,20 @@
+<div class="wrapper">
+    <app-equipment-card *ngIf="id" [id]="id"></app-equipment-card>
+    <mat-card class="form">
+        <mat-form-field class="example-full-width" class="search">
+            <textarea matInput [(ngModel)]="text" name="text" rows="7"></textarea>
+            <mat-icon matSuffix>edit</mat-icon>
+            <mat-hint>Feedback</mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="example-full-width" class="rating">
+            <mat-hint>Rating</mat-hint>
+            <input matInput [(ngModel)]="rating" name="rating" 
+                type="number" min="1" max="5">
+            <mat-icon matSuffix>star</mat-icon>
+        </mat-form-field>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" (click)="sendFeedback()">Send</button>
+        </mat-card-actions>
+    </mat-card>  
+</div>

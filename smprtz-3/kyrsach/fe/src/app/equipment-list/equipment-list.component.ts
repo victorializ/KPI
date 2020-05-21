@@ -12,23 +12,21 @@ export class EquipmentListComponent implements OnInit {
 
   public eq;
   public name = "";
-  public sort = false;
+  filter: string = "all";
+  types: string[] = ['all', 'backpack', 'tent', 'clothing', 'sleeping back'];
 
   constructor(private _be: BackendService) { }
 
   public loadData() {
-    this.eq = this._be.getEquipmentList().pipe(
-      map((res: Array<Equipment>) => this.sort ? res.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1) : res)
-    )
+    this.eq = this._be.getEquipmentList();
   }
-  
+
+  public corresponds(name, type) {
+    return (name.includes(this.name) || this.name === '') 
+      && (this.filter === type || this.filter === 'all')
+  }
+
   ngOnInit() {
     this.loadData();
   }
-
-  toggleSort() {
-    this.sort = !this.sort;
-    this.loadData();
-  }
-
 }

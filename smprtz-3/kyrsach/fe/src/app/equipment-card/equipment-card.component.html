@@ -1,0 +1,20 @@
+<mat-card *ngIf="item$ | async as item" class="card"> 
+    <mat-card-title *ngIf="date">{{date.split(' ')[0]}}</mat-card-title>
+    <mat-card-title class="title">
+        {{item.name}}
+    </mat-card-title>
+    <img *ngIf="item.type == 'tent'" mat-card-image src="../../assets/tent.jpg">
+    <img *ngIf="item.type == 'clothing'" mat-card-image src="../../assets/clothing.jpg">
+    <img *ngIf="item.type == 'backpack'" mat-card-image src="../../assets/backpack.jpg">
+    <img *ngIf="item.type == 'bag'" mat-card-image src="../../assets/bag.jpg">
+    <div class="bottom">
+        <div class="group">
+            <p>{{item.price}}</p>
+            <p>$</p>
+        </div>
+        <div class="group">
+            <mat-icon matSuffix *ngFor="let i of [].constructor(item.rating)">star</mat-icon>
+        </div>
+    </div>
+    <p class="description">{{item.description}}</p>
+</mat-card>
