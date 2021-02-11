@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>base.png</file>
+        <file>bricks.png</file>
+        <file>BulletD.png</file>
+        <file>BulletL.png</file>
+        <file>BulletR.png</file>
+        <file>BulletU.png</file>
+        <file>Enemy.png</file>
+        <file>EnemyD.png</file>
+        <file>EnemyL.png</file>
+        <file>EnemyR.png</file>
+        <file>EnemyU.png</file>
+        <file>map.txt</file>
+        <file>PlayerD.png</file>
+        <file>PlayerL.png</file>
+        <file>PlayerR.png</file>
+        <file>PlayerU.png</file>
+        <file>wall.png</file>
+    </qresource>
+</RCC>
